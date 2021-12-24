@@ -5,7 +5,7 @@ const StatusBarBox = styled.div`
     top: 20px;
     left: 30px;
     width: 70%;
-    height: 8px;
+    height: 10px;
     background-color: #FFF;
 
     z-index: 0;
@@ -13,8 +13,8 @@ const StatusBarBox = styled.div`
 
 const StatusBar = (props) => {
     const StatusBarCircle1 = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     background-color: ${props.step1Color};
     border-radius: 50%;
 
@@ -30,13 +30,13 @@ const StatusBar = (props) => {
     top: 0px;
     left: 0px;
     width: 50%;
-    height: 8px;
+    height: 10px;
     background-color: ${props.step2Color};
     z-index: 10;
     `;
     const StatusBarCircle2 = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     background-color: ${props.step2Color};
     border-radius: 50%;
 
@@ -52,13 +52,13 @@ const StatusBar = (props) => {
     top: 0px;
     left: 50%;
     width: 50%;
-    height: 8px;
+    height: 10px;
     background-color: ${props.step3Color};
     z-index: 10;
     `;
     const StatusBarCircle3 = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     background-color:  ${props.step3Color};
     border-radius: 50%;
 
