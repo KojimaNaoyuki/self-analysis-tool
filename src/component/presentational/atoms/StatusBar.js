@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 const StatusBarBox = styled.div`
     position: relative;
-    top: 20px;
-    left: 30px;
     width: 70%;
     height: 10px;
     background-color: #FFF;
+    margin: 0 auto;
 
     z-index: 0;
 `;
