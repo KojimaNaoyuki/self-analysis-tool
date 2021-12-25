@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const LogoBox = styled.div``;
+const LogoBox = styled.div`
+    position: relative;
+`;
 const H1 = styled.h1`
     margin: 0;
     font-size: 22px;

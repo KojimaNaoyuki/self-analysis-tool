@@ -1,10 +1,8 @@
 import './App.css';
 import styled from 'styled-components';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
-import StatusBar from './component/presentational/atoms/StatusBar';
-import Logo from './component/presentational/atoms/Logo';
-import Btn from './component/presentational/atoms/Btn';
-import ConfirmAnswerBox from './component/presentational/organisms/ConfirmAnswerBox';
+import TestPage from './component/container/TestPage';
 
 const BaseBox = styled.div`
   width: 100vw;
@@ -14,13 +12,11 @@ const BaseBox = styled.div`
 
 function App() {
   return (
-    <BaseBox>
-      {/* <StatusBar step1Color="#8DCFFF" step2Color="#FFF" step3Color="#FFF"/> */}
-      {/* <Logo /> */}
-      {/* <Btn text="次へ" /> */}
-      <ConfirmAnswerBox qText="質問を表示" aText="内容内容内容内容内容内容内容内容内容内容"/>
-      <ConfirmAnswerBox qText="質問を表示" aText="内容内容内容内容内容内容内容内容内容内容"/>
-    </BaseBox>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path='/testpage' element={<TestPage />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 
