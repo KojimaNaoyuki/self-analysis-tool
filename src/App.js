@@ -4,12 +4,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 import TestPage from './component/container/TestPage';
 import AnswerPage from './component/container/AnswerPage';
-
-const BaseBox = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: #EFEFEF;
-`;
+import ConfirmAnswerPage from './component/container/ConfirmAnswerPage';
 
 function App() {
   return (
@@ -17,6 +12,7 @@ function App() {
         <Routes>
           <Route exact path='/testpage' element={<TestPage />} />
           <Route exact path='/answerPage' element={<AnswerPage />} />
+          <Route exact path='/confirmanswerpage' element={<ConfirmAnswerPage />} />
         </Routes>
       </BrowserRouter>
   );
