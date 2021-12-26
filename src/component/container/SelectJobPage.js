@@ -41,7 +41,7 @@ class SelectJobPage extends Component {
                 {/* メッセージ */}
 
                 {/* 職種ボックス */}
-                <JobBox jobName="総合職" text="一般的な経験や体験から分析する" />
+                <JobBox jobName="総合職" text="一般的な経験や体験から分析する" jobInfo="comprehensivework" />
                 <JobBox jobName="エンジニア" text="一般的な経験や体験から分析する" />
                 <JobBox jobName="エンジニア" text="開発経験やスキルを中心に分析する" />
                 {/* 職種ボックス */}

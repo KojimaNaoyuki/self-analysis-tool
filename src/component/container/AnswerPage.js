@@ -1,5 +1,6 @@
 import { Component } from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
@@ -37,8 +38,38 @@ const BtnWrap = styled.div`
 `;
 
 class AnswerPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            numQuestions: 10, //質問全体数
+            remainingQuestions: 10 //残り質問数
+        }
+    }
+
+    nextBtn() {
+        if(this.state.remainingQuestions != 1) {
+            //次の質問へ
+            this.setState({
+                remainingQuestions: this.state.remainingQuestions - 1
+            });
+        } else {
+            //回答確認ページへ
+            if(window.confirm('回答を完了してよろしいですか?')) {
+                this.props.history.push("/confirmanswerpage");
+            }
+        }
+    }
+    backBtn() {
+        if(this.state.remainingQuestions != this.state.numQuestions) {
+            //前の質問へ
+            this.setState({
+                remainingQuestions: this.state.remainingQuestions + 1
+            });
+        } else {
+            //職種選択ページへ
+            this.props.history.push("/");
+        }
     }
 
     render() {
@@ -55,7 +86,7 @@ class AnswerPage extends Component {
                 {/* 状態バー */}
 
                 {/* 質問数 */}
-                <QNum num="10" />
+                <QNum num={this.state.remainingQuestions} />
                 {/* 質問数 */}
 
                 {/* 質問を表示 */}
@@ -68,13 +99,13 @@ class AnswerPage extends Component {
 
                 {/* ボタン */}
                 <BtnWrap>
-                    <Btn text="次へ" />
+                    <Btn text="次へ" clickedFn={this.nextBtn.bind(this)} />
                 </BtnWrap>
                 <BtnWrap>
-                    <Btn text="スキップ" />
+                    <Btn text="スキップ" clickedFn={this.nextBtn.bind(this)} />
                 </BtnWrap>
                 <BtnWrap>
-                    <Btn text="戻る" />
+                    <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
                 </BtnWrap>
                 {/* ボタン */}
 
@@ -82,4 +113,4 @@ class AnswerPage extends Component {
         );
     }
 }
-export default AnswerPage;
+export default withRouter(AnswerPage);
