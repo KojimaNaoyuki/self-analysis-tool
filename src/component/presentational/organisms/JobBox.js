@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Btn from '../atoms/Btn';
 
@@ -42,7 +43,7 @@ const JobBox = (props) => {
             </Flex>
             <Ms>{props.text}</Ms>
 
-            <Btn text="次へ" />
+            <Link to={`/answerPage/${props.jobInfo}`}><Btn text="次へ" /></Link>
         </JobBoxWrap>
     );
 }

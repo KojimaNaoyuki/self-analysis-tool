@@ -1,6 +1,6 @@
 import './App.css';
 import styled from 'styled-components';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import TestPage from './component/container/TestPage';
 import AnswerPage from './component/container/AnswerPage';
@@ -10,12 +10,12 @@ import SelectJobPage from './component/container/SelectJobPage';
 function App() {
   return (
       <BrowserRouter>
-        <Routes>
-          <Route exact path='/testpage' element={<TestPage />} />
-          <Route exact path='/' element={<SelectJobPage />} />
-          <Route exact path='/answerPage' element={<AnswerPage />} />
-          <Route exact path='/confirmanswerpage' element={<ConfirmAnswerPage />} />
-        </Routes>
+        <Switch>
+          <Route exact path='/testpage'><TestPage /></Route>
+          <Route exact path='/'><SelectJobPage /></Route>
+          <Route exact path='/answerPage/:jobInfo'><AnswerPage /></Route>
+          <Route exact path='/confirmanswerpage'><ConfirmAnswerPage /></Route>
+        </Switch>
       </BrowserRouter>
   );
 }
