@@ -1,6 +1,7 @@
 import { Component } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
@@ -16,10 +17,14 @@ const StatusBarWrap = styled.div`
 `;
 
 const Question = styled.h3`
-    padding: 30px 0 45px;
-    font-size: 20px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px 0;
+    font-size: 18px;
     font-weight: bold;
     color: #525252;
+    text-align: left;
+    line-height: 24px;
 `;
 
 const AInputBox = styled.textarea`
@@ -43,8 +48,30 @@ class AnswerPage extends Component {
 
         this.state = {
             numQuestions: 10, //質問全体数
-            remainingQuestions: 10 //残り質問数
+            remainingQuestions: 10, //残り質問数
+            questionsData: [], //質問データ,
+            questionDisplay: null
         }
+    }
+
+    componentDidMount() {
+        const jobInfo = this.props.match.params.jobInfo;
+
+        axios
+        .get("http://127.0.0.1:8000/api/getQuestion", {
+            params: {
+                jobName: jobInfo
+            }
+        })
+        .then(response => {
+            this.setState({
+                questionsData: response.data.data.questions
+            });
+            this.dispalyQuestion(0);
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     nextBtn() {
@@ -71,6 +98,11 @@ class AnswerPage extends Component {
             this.props.history.push("/");
         }
     }
+    dispalyQuestion(questionNumber) {
+        this.setState({
+            questionDisplay: this.state.questionsData[questionNumber].text
+        });
+    }
 
     render() {
         return(
@@ -90,7 +122,7 @@ class AnswerPage extends Component {
                 {/* 質問数 */}
 
                 {/* 質問を表示 */}
-                <Question>質問を表示</Question>
+                <Question>{this.state.questionDisplay}</Question>
                 {/* 質問を表示 */}
 
                 {/* テキストボックス */}
