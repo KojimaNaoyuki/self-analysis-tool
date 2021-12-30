@@ -46,11 +46,13 @@ class AnswerPage extends Component {
     constructor(props) {
         super(props);
 
+        this.answerData = '';
+
         this.state = {
             numQuestions: null, //質問全体数
             remainingQuestions: null, //残り質問数
             questionsData: [], //質問データ
-            questionDisplay: null
+            questionDisplay: null,
         }
     }
 
@@ -69,26 +71,32 @@ class AnswerPage extends Component {
                 remainingQuestions: response.data.data.questions.length,
                 questionsData: response.data.data.questions
             });
-            this.dispalyQuestion(0);
         })
         .catch(error => {
             console.log(error);
         });
     }
+    componentDidUpdate() {
+        const questionIndex = this.state.numQuestions - this.state.remainingQuestions;
+
+        this._dispalyQuestion(questionIndex);
+    }
 
     nextBtn() {
+        const questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
+
         if(this.state.remainingQuestions != 1) {
             //次の質問へ
             this.setState({
                 remainingQuestions: this.state.remainingQuestions - 1
             });
 
-            const questionIndex = this.state.numQuestions - (this.state.remainingQuestions-1);
-            this.dispalyQuestion(questionIndex);
+            this._getInputText(questionIndex);
         } else {
             //回答確認ページへ
             if(window.confirm('回答を完了してよろしいですか?')) {
-                this.props.history.push("/confirmanswerpage");
+                this._getInputText(questionIndex);
+                this.props.history.push("/confirmanswerpage/" + this.answerData);
             }
         }
     }
@@ -98,18 +106,25 @@ class AnswerPage extends Component {
             this.setState({
                 remainingQuestions: this.state.remainingQuestions + 1
             });
-
-            const questionIndex = this.state.numQuestions - (this.state.remainingQuestions+1);
-            this.dispalyQuestion(questionIndex);
         } else {
             //職種選択ページへ
             this.props.history.push("/");
         }
     }
-    dispalyQuestion(questionNumber) {
-        this.setState({
-            questionDisplay: this.state.questionsData[questionNumber].text
-        });
+
+    _dispalyQuestion(questionNumber) {
+        //質問を表示する
+        document.querySelector('#questionDisplay').innerHTML = this.state.questionsData[questionNumber].text;
+    }
+    _getInputText(questionNumber) {
+        //入力情報を取得、保存する
+        const question = this.state.questionsData[questionNumber].text
+        const answer = document.querySelector('#textBox').value;
+
+        this.answerData = this.answerData + '&' + question + '=' + answer
+        console.log(this.answerData);
+        
+        document.querySelector('#textBox').value = '';
     }
 
     render() {
@@ -130,11 +145,11 @@ class AnswerPage extends Component {
                 {/* 質問数 */}
 
                 {/* 質問を表示 */}
-                <Question>{this.state.questionDisplay}</Question>
+                <Question id="questionDisplay">{this.state.questionDisplay}</Question>
                 {/* 質問を表示 */}
 
                 {/* テキストボックス */}
-                <AInputBox placeholder="入力"></AInputBox>
+                <AInputBox placeholder="入力" id="textBox"></AInputBox>
                 {/* テキストボックス */}
 
                 {/* ボタン */}

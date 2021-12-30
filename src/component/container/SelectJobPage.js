@@ -1,6 +1,5 @@
 import { Component } from "react";
 import styled from 'styled-components';
-import axios from 'axios';
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
@@ -22,16 +21,6 @@ const Ms = styled.h3`
 class SelectJobPage extends Component {
     constructor() {
         super();
-    }
-
-    componentDidMount() {
-        axios
-        .get("http://127.0.0.1:8000/api/getQuestion?jobName=総合職")
-        .then(result => {
-            console.log(result.data);
-        }).catch(error => {
-            console.log(error);
-        });
     }
 
     render() {
