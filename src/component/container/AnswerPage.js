@@ -47,9 +47,9 @@ class AnswerPage extends Component {
         super(props);
 
         this.state = {
-            numQuestions: 10, //質問全体数
-            remainingQuestions: 10, //残り質問数
-            questionsData: [], //質問データ,
+            numQuestions: null, //質問全体数
+            remainingQuestions: null, //残り質問数
+            questionsData: [], //質問データ
             questionDisplay: null
         }
     }
@@ -65,6 +65,8 @@ class AnswerPage extends Component {
         })
         .then(response => {
             this.setState({
+                numQuestions: response.data.data.questions.length,
+                remainingQuestions: response.data.data.questions.length,
                 questionsData: response.data.data.questions
             });
             this.dispalyQuestion(0);
@@ -80,6 +82,9 @@ class AnswerPage extends Component {
             this.setState({
                 remainingQuestions: this.state.remainingQuestions - 1
             });
+
+            const questionIndex = this.state.numQuestions - (this.state.remainingQuestions-1);
+            this.dispalyQuestion(questionIndex);
         } else {
             //回答確認ページへ
             if(window.confirm('回答を完了してよろしいですか?')) {
@@ -93,6 +98,9 @@ class AnswerPage extends Component {
             this.setState({
                 remainingQuestions: this.state.remainingQuestions + 1
             });
+
+            const questionIndex = this.state.numQuestions - (this.state.remainingQuestions+1);
+            this.dispalyQuestion(questionIndex);
         } else {
             //職種選択ページへ
             this.props.history.push("/");
