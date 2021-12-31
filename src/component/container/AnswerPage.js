@@ -78,7 +78,8 @@ class AnswerPage extends Component {
     componentDidUpdate() {
         const questionIndex = this.state.numQuestions - this.state.remainingQuestions;
 
-        this._dispalyQuestion(questionIndex);
+        this._displayQuestion(questionIndex);
+        this._displayAnswer(questionIndex);
     }
 
     nextBtn() {
@@ -100,34 +101,50 @@ class AnswerPage extends Component {
         }
     }
     backBtn() {
+        const questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
+
         if(this.state.remainingQuestions != this.state.numQuestions) {
             //前の質問へ
             this.setState({
                 remainingQuestions: this.state.remainingQuestions + 1
             });
+
+            this._getInputText(questionIndex);
         } else {
             //職種選択ページへ
             this.props.history.push("/");
         }
     }
 
-    _dispalyQuestion(questionNumber) {
+    _displayQuestion(questionNumber) {
         //質問を表示する
         document.querySelector('#questionDisplay').innerHTML = this.state.questionsData[questionNumber].text;
     }
     _getInputText(questionNumber) {
         //入力情報を取得、保存する
+        console.log('_getInputText: ' + questionNumber);
         const question = this.state.questionsData[questionNumber].text
         const answer = document.querySelector('#textBox').value;
 
         this.props.dispatch({
             type: "ADD_ANSWERDATA",
             payload: {
-                text: ',' + question + '=' + answer + ','
+                index: questionNumber,
+                text: question + ' ' + answer
             }
         });
         
         document.querySelector('#textBox').value = '';
+    }
+    _displayAnswer(questionNumber) {
+        //すでに回答済みであれば回答内容を表示する
+        console.log(questionNumber);
+        if(this.props.answerData[questionNumber] != undefined && this.props.answerData[questionNumber].split(/\s+/)[1] != '') {
+            const answerText = this.props.answerData[questionNumber].split(/\s+/)[1];
+            document.querySelector('#textBox').value = answerText;
+        } else {
+            document.querySelector('#textBox').value = '';
+        }
     }
 
     render() {
