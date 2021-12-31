@@ -138,7 +138,6 @@ class AnswerPage extends Component {
     }
     _displayAnswer(questionNumber) {
         //すでに回答済みであれば回答内容を表示する
-        console.log(questionNumber);
         if(this.props.answerData[questionNumber] != undefined && this.props.answerData[questionNumber].split(/\s+/)[1] != '') {
             const answerText = this.props.answerData[questionNumber].split(/\s+/)[1];
             document.querySelector('#textBox').value = answerText;
