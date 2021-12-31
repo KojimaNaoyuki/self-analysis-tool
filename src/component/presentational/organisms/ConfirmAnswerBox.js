@@ -8,17 +8,22 @@ const Box = styled.div`
 `;
 const QBox = styled.div`
     position: relative;
-    padding: 14px 0;
+    padding: 14px 0px;
     background-color: #FFF;
     border-bottom: solid 3px #EFEFEF;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     transition: all 0.3s;
     &:hover {
         opacity: 0.6;
         cursor: pointer;
     }
 `;
+const QText = styled.p`
+    width: 100%;
+    margin: 0;
+    padding-left: 40px;
+`
 const ABox = styled.p`
 `;
 
@@ -52,7 +57,7 @@ class ConfirmAnswerBox extends Component {
     render() {
         return(
             <Box>
-                <QBox onClick={this.openABox.bind(this)}><Img src={arrowImg} className={`arrow-img ${this.state.arrowImgClass}`} />{this.props.qText}</QBox>
+                <QBox onClick={this.openABox.bind(this)}><Img src={arrowImg} className={`arrow-img ${this.state.arrowImgClass}`} /><QText>{this.props.qText}</QText></QBox>
                 <ABox className={`ABox ${this.state.ABoxClass}`}>{this.props.aText}</ABox>
             </Box>
         );

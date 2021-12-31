@@ -1,5 +1,7 @@
 import { Component } from "react";
 import styled from 'styled-components';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
@@ -20,12 +22,41 @@ const Ms = styled.h3`
     color: #525252;
 `
 const BtnWrap = styled.div`
-    padding: 40px 0 45px;
+    padding: 10px 0;
 `
+
+const Mtb = styled.div`
+    margin: 15px 0;
+`;
 
 class ConfirmAnswerPage extends Component {
     constructor() {
         super();
+
+        this.state = {
+            confirmAnswerBox: null
+        }
+    }
+
+    componentDidMount() {
+        let confirmAnswerBoxArr = []
+        let questionText;
+        let answerText;
+        this.props.answerData.forEach(element => {
+            questionText = element.split(/\s+/)[0];
+            answerText = element.split(/\s+/)[1];
+
+            confirmAnswerBoxArr.push(<ConfirmAnswerBox qText={questionText} aText={answerText}/>);
+        });
+
+        this.setState({
+            confirmAnswerBox: confirmAnswerBoxArr
+        });
+    }
+
+    backBtn() {
+        console.log('aaa');
+        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo);
     }
 
     render() {
@@ -46,21 +77,15 @@ class ConfirmAnswerPage extends Component {
                 {/* メッセージ */}
 
                 {/* 回答確認ボックス */}
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
-                <ConfirmAnswerBox qText="質問内容を表示" aText="回答内容を表示回答内容を表示回答内容を表示回答内容を表示回答内容を表示" />
+                {this.state.confirmAnswerBox}
                 {/* 回答確認ボックス */}
 
+                <Mtb />
+
                 {/* ボタン */}
+                <BtnWrap>
+                    <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
+                </BtnWrap>
                 <BtnWrap>
                     <Btn text="PDFとして保存" />
                 </BtnWrap>
@@ -69,4 +94,9 @@ class ConfirmAnswerPage extends Component {
         );
     }
 }
-export default ConfirmAnswerPage;
+
+const mapStateToProps = (state) => {
+    return { answerData: state.answerData };
+};
+
+export default connect(mapStateToProps)(withRouter(ConfirmAnswerPage));

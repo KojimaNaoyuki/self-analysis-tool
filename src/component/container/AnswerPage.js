@@ -96,7 +96,7 @@ class AnswerPage extends Component {
             //回答確認ページへ
             if(window.confirm('回答を完了してよろしいですか?')) {
                 this._getInputText(questionIndex);
-                this.props.history.push("/confirmanswerpage/");
+                this.props.history.push("/confirmanswerpage/" + this.props.match.params.jobInfo);
             }
         }
     }
