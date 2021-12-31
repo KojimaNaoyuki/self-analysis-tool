@@ -2,6 +2,7 @@ import { Component } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import { connect } from "react-redux";
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
@@ -45,8 +46,6 @@ const BtnWrap = styled.div`
 class AnswerPage extends Component {
     constructor(props) {
         super(props);
-
-        this.answerData = '';
 
         this.state = {
             numQuestions: null, //質問全体数
@@ -96,7 +95,7 @@ class AnswerPage extends Component {
             //回答確認ページへ
             if(window.confirm('回答を完了してよろしいですか?')) {
                 this._getInputText(questionIndex);
-                this.props.history.push("/confirmanswerpage/" + this.answerData);
+                this.props.history.push("/confirmanswerpage/");
             }
         }
     }
@@ -121,8 +120,12 @@ class AnswerPage extends Component {
         const question = this.state.questionsData[questionNumber].text
         const answer = document.querySelector('#textBox').value;
 
-        this.answerData = this.answerData + '&' + question + '=' + answer
-        console.log(this.answerData);
+        this.props.dispatch({
+            type: "ADD_ANSWERDATA",
+            payload: {
+                text: ',' + question + '=' + answer + ','
+            }
+        });
         
         document.querySelector('#textBox').value = '';
     }
@@ -164,8 +167,15 @@ class AnswerPage extends Component {
                 </BtnWrap>
                 {/* ボタン */}
 
+                {/* <p>reduxデータ確認 answerData:{this.props.answerData}</p> */}
+
             </AnswerPageBox>
         );
     }
 }
-export default withRouter(AnswerPage);
+
+const mapStateToProps = (state) => {
+    return { answerData: state.answerData };
+};
+
+export default connect(mapStateToProps)(withRouter(AnswerPage));
