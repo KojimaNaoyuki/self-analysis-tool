@@ -8,6 +8,7 @@ import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
 import QNum from "../presentational/atoms/QNum";
 import Btn from "./../presentational/atoms/Btn";
+import Loader from "../presentational/atoms/Loader";
 
 const AnswerPageBox = styled.div`
     text-align: center;
@@ -52,6 +53,7 @@ class AnswerPage extends Component {
             remainingQuestions: null, //残り質問数
             questionsData: [], //質問データ
             questionDisplay: null,
+            loaderComponent: <Loader />
         }
     }
 
@@ -59,7 +61,7 @@ class AnswerPage extends Component {
         const jobInfo = this.props.match.params.jobInfo;
 
         axios
-        .get("http://127.0.0.1:8000/api/getQuestion", {
+        .get("http://api.kwebk.xyz/api/getQuestion", {
             params: {
                 jobName: jobInfo
             }
@@ -70,9 +72,11 @@ class AnswerPage extends Component {
                 remainingQuestions: response.data.data.questions.length,
                 questionsData: response.data.data.questions
             });
+            this._loaderOperation(false);
         })
         .catch(error => {
             console.log(error);
+            this._loaderOperation(false);
         });
     }
     componentDidUpdate() {
@@ -145,6 +149,18 @@ class AnswerPage extends Component {
             document.querySelector('#textBox').value = '';
         }
     }
+    _loaderOperation(status) {
+        //ローダーの表示設定
+        if(status) {
+            this.setState({
+                loaderComponent: <Loader />
+            });
+        } else {
+            this.setState({
+                loaderComponent: null
+            });
+        }
+    }
 
     render() {
         return(
@@ -184,6 +200,10 @@ class AnswerPage extends Component {
                 {/* ボタン */}
 
                 {/* <p>reduxデータ確認 answerData:{this.props.answerData}</p> */}
+
+                {/* ローダー */}
+                {this.state.loaderComponent}
+                {/* ローダー */}
 
             </AnswerPageBox>
         );
