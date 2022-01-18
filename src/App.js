@@ -13,7 +13,7 @@ function App() {
         <Switch>
           <Route exact path='/testpage'><TestPage /></Route>
           <Route exact path='/'><SelectJobPage /></Route>
-          <Route exact path='/answerPage/:jobInfo'><AnswerPage /></Route>
+          <Route exact path='/answerPage/:jobInfo/:pageIndex'><AnswerPage /></Route>
           <Route exact path='/confirmanswerpage/:jobInfo'><ConfirmAnswerPage /></Route>
         </Switch>
       </BrowserRouter>

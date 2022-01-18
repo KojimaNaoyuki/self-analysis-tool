@@ -51,6 +51,7 @@ class AnswerPage extends Component {
         this.state = {
             numQuestions: null, //質問全体数
             remainingQuestions: null, //残り質問数
+            questionIndex: 0,
             questionsData: [], //質問データ
             questionDisplay: null,
             loaderComponent: <Loader />

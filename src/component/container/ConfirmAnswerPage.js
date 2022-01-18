@@ -42,11 +42,11 @@ class ConfirmAnswerPage extends Component {
         let confirmAnswerBoxArr = []
         let questionText;
         let answerText;
-        this.props.answerData.forEach(element => {
+        this.props.answerData.forEach((element, index) => {
             questionText = element.split(/\s+/)[0];
             answerText = element.split(/\s+/)[1];
 
-            confirmAnswerBoxArr.push(<ConfirmAnswerBox qText={questionText} aText={answerText}/>);
+            confirmAnswerBoxArr.push(<ConfirmAnswerBox qText={questionText} aText={answerText} sendId={index} backWrite={this.backWrite.bind(this)} />);
         });
 
         this.setState({
@@ -55,7 +55,11 @@ class ConfirmAnswerPage extends Component {
     }
 
     backBtn() {
-        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo);
+        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo + '/0');
+    }
+
+    backWrite(element) {
+        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo + '/' + element.target.id);
     }
 
     render() {
