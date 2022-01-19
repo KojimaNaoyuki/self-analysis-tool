@@ -6,6 +6,7 @@ import TestPage from './component/container/TestPage';
 import AnswerPage from './component/container/AnswerPage';
 import ConfirmAnswerPage from './component/container/ConfirmAnswerPage';
 import SelectJobPage from './component/container/SelectJobPage';
+import ManagementPage from './component/container/ManagementPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path='/'><SelectJobPage /></Route>
           <Route exact path='/answerPage/:jobInfo/:pageIndex'><AnswerPage /></Route>
           <Route exact path='/confirmanswerpage/:jobInfo'><ConfirmAnswerPage /></Route>
+          <Route exact path='/managementpage'><ManagementPage /></Route>
         </Switch>
       </BrowserRouter>
   );
