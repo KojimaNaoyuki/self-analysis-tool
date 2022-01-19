@@ -51,7 +51,6 @@ class AnswerPage extends Component {
         this.state = {
             numQuestions: null, //質問全体数
             remainingQuestions: null, //残り質問数
-            questionIndex: 0,
             questionsData: [], //質問データ
             questionDisplay: null,
             loaderComponent: <Loader />
@@ -70,9 +69,10 @@ class AnswerPage extends Component {
         .then(response => {
             this.setState({
                 numQuestions: response.data.data.questions.length,
-                remainingQuestions: response.data.data.questions.length,
+                remainingQuestions: response.data.data.questions.length - this.props.match.params.pageIndex,
                 questionsData: response.data.data.questions
             });
+
             this._loaderOperation(false);
         })
         .catch(error => {
@@ -81,14 +81,14 @@ class AnswerPage extends Component {
         });
     }
     componentDidUpdate() {
-        const questionIndex = this.state.numQuestions - this.state.remainingQuestions;
+        this.questionIndex = this.state.numQuestions - this.state.remainingQuestions;
 
-        this._displayQuestion(questionIndex);
-        this._displayAnswer(questionIndex);
+        this._displayQuestion(this.questionIndex);
+        this._displayAnswer(this.questionIndex);
     }
 
     nextBtn() {
-        const questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
+        this.questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
 
         if(this.state.remainingQuestions != 1) {
             //次の質問へ
@@ -96,17 +96,17 @@ class AnswerPage extends Component {
                 remainingQuestions: this.state.remainingQuestions - 1
             });
 
-            this._getInputText(questionIndex);
+            this._getInputText(this.questionIndex);
         } else {
             //回答確認ページへ
             if(window.confirm('回答を完了してよろしいですか?')) {
-                this._getInputText(questionIndex);
+                this._getInputText(this.questionIndex);
                 this.props.history.push("/confirmanswerpage/" + this.props.match.params.jobInfo);
             }
         }
     }
     backBtn() {
-        const questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
+        this.questionIndex = this.state.numQuestions - (this.state.remainingQuestions);
 
         if(this.state.remainingQuestions != this.state.numQuestions) {
             //前の質問へ
@@ -114,7 +114,7 @@ class AnswerPage extends Component {
                 remainingQuestions: this.state.remainingQuestions + 1
             });
 
-            this._getInputText(questionIndex);
+            this._getInputText(this.questionIndex);
         } else {
             //職種選択ページへ
             this.props.history.push("/");

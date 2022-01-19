@@ -55,7 +55,7 @@ class ConfirmAnswerPage extends Component {
     }
 
     backBtn() {
-        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo + '/0');
+        this.props.history.push('/answerPage/' + this.props.match.params.jobInfo + '/' + (this.props.answerData.length-1));
     }
 
     backWrite(element) {

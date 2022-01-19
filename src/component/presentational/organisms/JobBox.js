@@ -43,7 +43,7 @@ const JobBox = (props) => {
             </Flex>
             <Ms>{props.text}</Ms>
 
-            <Link to={`/answerPage/${props.jobInfo}`}><Btn text="次へ" /></Link>
+            <Link to={`/answerPage/${props.jobInfo}/0`}><Btn text="次へ" /></Link>
         </JobBoxWrap>
     );
 }
