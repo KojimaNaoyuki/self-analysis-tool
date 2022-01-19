@@ -28,7 +28,8 @@ code {
   opacity: 0;
 }
 .openABox {
-  padding: 10px;
+  padding: 20px 10px;
+  padding-right: 40px;
   height: 100%;
   border-bottom: solid 9px #efefef;
   opacity: 1;
@@ -42,4 +43,10 @@ code {
 }
 .openArrow-img {
   transform: translateY(-50%) rotate(90deg);
+}
+.write-img {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 26px;
 }

@@ -2,8 +2,10 @@ import { Component } from "react";
 import styled from "styled-components";
 
 import arrowImg from "../../../img/arrow.svg";
+import writeImg from "../../../img/write-img.svg";
 
-const Box = styled.div`
+const Box = styled.h4`
+    margin: 0;
     position: relative;
 `;
 const QBox = styled.div`
@@ -25,6 +27,7 @@ const QText = styled.p`
     padding-left: 40px;
 `
 const ABox = styled.p`
+    position: relative;
 `;
 
 const Img = styled.img`
@@ -57,8 +60,9 @@ class ConfirmAnswerBox extends Component {
     render() {
         return(
             <Box>
+                <input type="hidden" value={this.props.sendId} />
                 <QBox onClick={this.openABox.bind(this)}><Img src={arrowImg} className={`arrow-img ${this.state.arrowImgClass}`} /><QText>{this.props.qText}</QText></QBox>
-                <ABox className={`ABox ${this.state.ABoxClass}`}>{this.props.aText}</ABox>
+                <ABox className={`ABox ${this.state.ABoxClass}`}>{this.props.aText}<Img src={writeImg} className={`write-img`} onClick={this.props.backWrite} id={this.props.sendId}/></ABox>
             </Box>
         );
     }
