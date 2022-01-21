@@ -10,14 +10,14 @@ const IdBox = styled.h3`
     margin: 0;
     background-color: #8DCFFF;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
 `;
 const Qtext = styled.h3`
     padding: 6px 20px;
     width: 80%;
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     overflow-x: scroll;
     background-color: #daedfd;
