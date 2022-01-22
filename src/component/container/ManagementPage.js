@@ -1,12 +1,14 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components';
-import QuestionList from "../presentational/atoms/QuestionList";
+import axios from 'axios';
 
 import Header from "../presentational/organisms/Header";
 import arrowImg from "../../img/arrow.svg";
 import Btn from "./../presentational/atoms/Btn";
+import QuestionList from "../presentational/atoms/QuestionList";
 import Loader from "../presentational/atoms/Loader";
+import updataImg from "../../img/updata.svg";
 
 const ManagementPageBox = styled.div`
 `;
@@ -16,7 +18,6 @@ const InputBox = styled.div`
 `;
 
 const Flex = styled.div`
-    margin-bottom: 1px;
     display: flex;
 `;
 const SubTitle = styled.h2`
@@ -41,7 +42,8 @@ const ContentMax = styled.div`
     margin-bottom: 1px;
 `;
 const SelectJobInput = styled.select`
-    width: 90%;
+    margin: 0 15px;
+    width: 200px;
     text-align: center;
     border: none;
     outline: none;
@@ -77,6 +79,10 @@ const BtnWrap = styled.div`
     text-align: center;
 `;
 
+const UpdataImg = styled.img`
+    width: 24px;
+`;
+
 const MtbL = styled.div`
     margin: 60px 0;
 `;
@@ -89,14 +95,56 @@ class ManagementPage extends Component {
         super();
 
         this.state = {
-            loaderComponent: null
+            loaderComponent: null,
+            questionList: null
         }
+    }
+
+    componentDidMount() {
+        this._getQuestionList();
     }
 
     _open(element) {
         const tg = document.querySelector('#list-' + element.target.id);
 
         tg.classList.toggle('open');
+    }
+
+    _getQuestionList () {
+        this._loaderOperation(true);
+
+        const selectElement = document.selectJob.selectJobInput;
+
+        const index = selectElement.selectedIndex;
+        const jobInfo = selectElement.options[index].value;
+
+        console.log(jobInfo);
+
+        axios
+        .get("http://api.kwebk.xyz/api/getQuestion", {
+            params: {
+                jobName: jobInfo
+            }
+        })
+        .then(response => {
+            this._displayQuestionList(response.data.data.questions);
+
+            this._loaderOperation(false);
+        })
+        .catch(error => {
+            console.log(error);
+            this._loaderOperation(false);
+        });
+    }
+
+    _displayQuestionList(data) {
+        let tmp = [];
+        data.forEach(elemenet => {
+            tmp.push(<QuestionList id={elemenet.id} Qtext={elemenet.text} />);
+        });
+        this.setState({
+            questionList: tmp
+        });
     }
 
     _loaderOperation(status) {
@@ -110,6 +158,57 @@ class ManagementPage extends Component {
                 loaderComponent: null
             });
         }
+    }
+
+    addQuestion() {
+        //質問を追加する
+        const text = document.querySelector('#list2Text').value;
+
+        const selectElement = document.selectJob.selectJobInput;
+
+        const index = selectElement.selectedIndex;
+        const jobInfo = selectElement.options[index].value;
+        
+        axios
+        .get("http://127.0.0.1:8000/api/postQuestion", {
+            params: {
+                jobName: jobInfo,
+                text: text
+            }
+        })
+        .then(response => {
+            console.log(response);
+            alert('質問を追加しました');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+    updateQuestion() {
+        //質問を更新する
+        const text = document.querySelector('#list3Text').value;
+        const id = document.querySelector('#list3Id').value;
+
+        const selectElement = document.selectJob.selectJobInput;
+
+        const index = selectElement.selectedIndex;
+        const jobInfo = selectElement.options[index].value;
+
+        axios
+        .get("http://127.0.0.1:8000/api/updateQuestion", {
+            params: {
+                jobName: jobInfo,
+                id: id,
+                text: text
+            }
+        })
+        .then(response => {
+            console.log(response);
+            alert('質問を更新しました');
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -126,11 +225,16 @@ class ManagementPage extends Component {
                     <Flex>
                         <SubTitle>管理対象</SubTitle>
                         <Content>
-                            <SelectJobInput>
-                                <option>総合職</option>
-                                <option>エンジニア(一般)</option>
-                                <option>エンジニア(制作物)</option>
-                            </SelectJobInput>
+                            <Flex>
+                                <form name="selectJob">
+                                    <SelectJobInput name="selectJobInput">
+                                        <option value="総合職">総合職</option>
+                                        <option>エンジニア(一般)</option>
+                                        <option>エンジニア(制作物)</option>
+                                    </SelectJobInput>
+                                </form>
+                                <UpdataImg src={updataImg} />
+                            </Flex>
                         </Content>
                     </Flex>
                 </InputBox>
@@ -142,8 +246,7 @@ class ManagementPage extends Component {
                 <InputBox id="list-1">
                     <HeadingTitle onClick={this._open} id="1"><ArrowImg src={arrowImg} className="arrow" />質問一覧</HeadingTitle>
                     <div className="list">
-                        <QuestionList id="0" Qtext="hogehoge" />
-                        <QuestionList id="1" Qtext="hogehoge" />
+                        {this.state.questionList}
                     </div>
                 </InputBox>
                 {/* 質問一覧 */}
@@ -155,10 +258,10 @@ class ManagementPage extends Component {
                     <HeadingTitle onClick={this._open} id="2"><ArrowImg src={arrowImg} className="arrow" />質問を追加</HeadingTitle>
                     <div className="list">
                         <ContentMax>質問内容</ContentMax>
-                        <ContentMax><InputSt type="text" /></ContentMax>
+                        <ContentMax><InputSt type="text" id="list2Text" /></ContentMax>
 
                         <BtnWrap>
-                            <Btn text="追加" />
+                            <Btn text="追加" clickedFn={this.addQuestion} />
                         </BtnWrap>
                     </div>
                 </InputBox>
@@ -175,12 +278,12 @@ class ManagementPage extends Component {
                             <Content>質問内容</Content>
                         </Flex>
                         <Flex>
-                            <SubTitle><InputId type="number" /></SubTitle>
-                            <Content><InputSt type="text" /></Content>
+                            <SubTitle><InputId type="number" id="list3Id" /></SubTitle>
+                            <Content><InputSt type="text" id="list3Text"  /></Content>
                         </Flex>
 
                         <BtnWrap>
-                            <Btn text="更新" />
+                            <Btn text="更新" clickedFn={this.updateQuestion} />
                         </BtnWrap>
                     </div>
                 </InputBox>
