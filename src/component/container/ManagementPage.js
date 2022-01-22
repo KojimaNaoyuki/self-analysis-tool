@@ -33,6 +33,13 @@ const Content = styled.div`
     text-align: center;
     background-color: #daedfd;
 `;
+const ContentMax = styled.div`
+    padding: 8px 0;
+    width: 100%;
+    text-align: center;
+    background-color: #daedfd;
+    margin-bottom: 1px;
+`;
 const SelectJobInput = styled.select`
     width: 90%;
     text-align: center;
@@ -147,14 +154,8 @@ class ManagementPage extends Component {
                 <InputBox id="list-2" className="open">
                     <HeadingTitle onClick={this._open} id="2"><ArrowImg src={arrowImg} className="arrow" />質問を追加</HeadingTitle>
                     <div className="list">
-                        <Flex>
-                            <SubTitle>ID</SubTitle>
-                            <Content>質問</Content>
-                        </Flex>
-                        <Flex>
-                            <SubTitle><InputId type="number" /></SubTitle>
-                            <Content><InputSt type="text" /></Content>
-                        </Flex>
+                        <ContentMax>質問内容</ContentMax>
+                        <ContentMax><InputSt type="text" /></ContentMax>
 
                         <BtnWrap>
                             <Btn text="追加" />
@@ -162,6 +163,28 @@ class ManagementPage extends Component {
                     </div>
                 </InputBox>
                 {/* 質問追加 */}
+
+                <MtbS />
+
+                {/* 質問更新 */}
+                <InputBox id="list-3">
+                    <HeadingTitle onClick={this._open} id="3"><ArrowImg src={arrowImg} className="arrow" />質問を更新</HeadingTitle>
+                    <div className="list">
+                        <Flex>
+                            <SubTitle>ID</SubTitle>
+                            <Content>質問内容</Content>
+                        </Flex>
+                        <Flex>
+                            <SubTitle><InputId type="number" /></SubTitle>
+                            <Content><InputSt type="text" /></Content>
+                        </Flex>
+
+                        <BtnWrap>
+                            <Btn text="更新" />
+                        </BtnWrap>
+                    </div>
+                </InputBox>
+                {/* 質問更新 */}
 
                 {/* ローダー */}
                 {this.state.loaderComponent}
