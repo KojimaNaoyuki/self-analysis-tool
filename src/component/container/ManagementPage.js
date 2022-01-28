@@ -110,7 +110,8 @@ class ManagementPage extends Component {
         tg.classList.toggle('open');
     }
 
-    _getQuestionList () {
+    _getQuestionList() {
+        //質問を取得
         this._loaderOperation(true);
 
         const selectElement = document.selectJob.selectJobInput;
@@ -170,7 +171,7 @@ class ManagementPage extends Component {
         const jobInfo = selectElement.options[index].value;
         
         axios
-        .get("http://127.0.0.1:8000/api/postQuestion", {
+        .get("http://api.kwebk.xyz/api/postQuestion", {
             params: {
                 jobName: jobInfo,
                 text: text
@@ -195,7 +196,7 @@ class ManagementPage extends Component {
         const jobInfo = selectElement.options[index].value;
 
         axios
-        .get("http://127.0.0.1:8000/api/updateQuestion", {
+        .get("http://api.kwebk.xyz/api/updateQuestion", {
             params: {
                 jobName: jobInfo,
                 id: id,
@@ -229,11 +230,11 @@ class ManagementPage extends Component {
                                 <form name="selectJob">
                                     <SelectJobInput name="selectJobInput">
                                         <option value="総合職">総合職</option>
-                                        <option>エンジニア(一般)</option>
-                                        <option>エンジニア(制作物)</option>
+                                        <option value="エンジニア_一般">エンジニア(一般)</option>
+                                        <option value="エンジニア_経験">エンジニア(制作物)</option>
                                     </SelectJobInput>
                                 </form>
-                                <UpdataImg src={updataImg} />
+                                <UpdataImg src={updataImg} onClick={this._getQuestionList.bind(this)} />
                             </Flex>
                         </Content>
                     </Flex>
