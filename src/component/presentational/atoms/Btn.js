@@ -10,7 +10,7 @@ const Btn = (props) => {
         background-color: #8DCFFF;
         border-radius: 3px;
         font-size: 16px;
-        font-weight: bold;
+        font-weight: normal;
         transition: all 0.3s;
         &:hover {
             opacity: 0.6;

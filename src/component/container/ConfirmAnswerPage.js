@@ -39,7 +39,7 @@ class ConfirmAnswerPage extends Component {
     }
 
     componentDidMount() {
-        let confirmAnswerBoxArr = []
+        let confirmAnswerBoxArr = [];
         let questionText;
         let answerText;
         this.props.answerData.forEach((element, index) => {

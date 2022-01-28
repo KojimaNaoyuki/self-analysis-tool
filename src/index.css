@@ -42,6 +42,7 @@ code {
   width: 18px;
 }
 .openArrow-img {
+  transition: all 0.3s;
   transform: translateY(-50%) rotate(90deg);
 }
 .write-img {
@@ -49,4 +50,21 @@ code {
   top: 8px;
   right: 10px;
   width: 26px;
+}
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.list {
+  height: 0;
+  transform: scaleY(0);
+}
+.arrow {
+}
+.open .arrow {
+  transform: translateY(-50%) rotate(90deg);
+  transition: all 0.3s;
+}
+.open .list {
+  height: 100%;
+  transition: all 0.4s;
+  transform: none;
 }
