@@ -61,7 +61,7 @@ class AnswerPage extends Component {
         const jobInfo = this.props.match.params.jobInfo;
 
         axios
-        .get("http://api.kwebk.xyz/api/getQuestion", {
+        .get("https://api.kwebk.xyz/api/getQuestion", {
             params: {
                 jobName: jobInfo
             }

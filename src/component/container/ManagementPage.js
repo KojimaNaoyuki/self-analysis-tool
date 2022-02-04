@@ -122,7 +122,7 @@ class ManagementPage extends Component {
         console.log(jobInfo);
 
         axios
-        .get("http://api.kwebk.xyz/api/getQuestion", {
+        .get("https://api.kwebk.xyz/api/getQuestion", {
             params: {
                 jobName: jobInfo
             }
@@ -171,7 +171,7 @@ class ManagementPage extends Component {
         const jobInfo = selectElement.options[index].value;
         
         axios
-        .get("http://api.kwebk.xyz/api/postQuestion", {
+        .get("https://api.kwebk.xyz/api/postQuestion", {
             params: {
                 jobName: jobInfo,
                 text: text
@@ -196,7 +196,7 @@ class ManagementPage extends Component {
         const jobInfo = selectElement.options[index].value;
 
         axios
-        .get("http://api.kwebk.xyz/api/updateQuestion", {
+        .get("https://api.kwebk.xyz/api/updateQuestion", {
             params: {
                 jobName: jobInfo,
                 id: id,
