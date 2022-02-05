@@ -11,6 +11,8 @@ import Loader from "../presentational/atoms/Loader";
 import updataImg from "../../img/updata.svg";
 
 const ManagementPageBox = styled.div`
+    max-width: 860px;
+    margin: 0 auto;
 `;
 
 const InputBox = styled.div`

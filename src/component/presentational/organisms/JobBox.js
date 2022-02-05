@@ -7,6 +7,12 @@ const JobBoxWrap = styled.div`
     padding: 20px 0;
     background-color: #FFF;
     border-bottom: solid 4px #EFEFEF;
+    @media screen and (min-width:860px) {
+        width: 45%;
+        border-radius: 3px;
+        border-bottom: none;
+        margin-bottom: 50px;
+    }
 `;
 const Flex = styled.div`
     display: flex;

@@ -20,11 +20,17 @@ const QBox = styled.div`
         opacity: 0.6;
         cursor: pointer;
     }
+    @media screen and (min-width:860px) {
+        border-radius: 3px;
+    }
 `;
 const QText = styled.p`
     width: 100%;
     margin: 0;
     padding-left: 40px;
+    @media screen and (min-width:860px) {
+        border-radius: 3px;
+    }
 `
 const ABox = styled.p`
     position: relative;

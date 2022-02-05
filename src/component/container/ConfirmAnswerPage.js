@@ -10,6 +10,8 @@ import Btn from "../presentational/atoms/Btn";
 
 const ConfirmAnswerPageBox = styled.div`
     text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
 `;
 
 const StatusBarWrap = styled.div`
@@ -23,10 +25,27 @@ const Ms = styled.h3`
 `
 const BtnWrap = styled.div`
     padding: 10px 0;
+    @media screen and (min-width:860px) {
+        width: 30%;
+    }
 `
+const BtnAllWrap = styled.div`
+    @media screen and (min-width:860px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row-reverse;
+        padding: 40px 0;
+    }
+`;
 
 const Mtb = styled.div`
     margin: 15px 0;
+`;
+
+const MarginHeader = styled.div`
+    margin: 60px 0;
 `;
 
 class ConfirmAnswerPage extends Component {
@@ -69,6 +88,8 @@ class ConfirmAnswerPage extends Component {
                 <Header />
                 {/* ヘッダー */}
 
+                <MarginHeader />
+
                 {/* 状態バー */}
                 <StatusBarWrap>
                     <StatusBar step1Color="#8DCFFF" step2Color="#8DCFFF" step3Color="#8DCFFF" />
@@ -86,12 +107,17 @@ class ConfirmAnswerPage extends Component {
                 <Mtb />
 
                 {/* ボタン */}
-                <BtnWrap>
-                    <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
-                </BtnWrap>
-                <BtnWrap>
-                    <Btn text="PDFとして保存" />
-                </BtnWrap>
+                <BtnAllWrap>
+                    <BtnWrap>
+                        <Btn text="画像として保存" />
+                    </BtnWrap>
+                    <BtnWrap>
+                        <Btn text="PDFとして保存" />
+                    </BtnWrap>
+                    <BtnWrap>
+                        <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
+                    </BtnWrap>
+                </BtnAllWrap>
                 {/* ボタン */}
             </ConfirmAnswerPageBox>
         );

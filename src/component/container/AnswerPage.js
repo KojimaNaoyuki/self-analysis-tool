@@ -12,6 +12,8 @@ import Loader from "../presentational/atoms/Loader";
 
 const AnswerPageBox = styled.div`
     text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
 `;
 
 const StatusBarWrap = styled.div`
@@ -42,6 +44,23 @@ const AInputBox = styled.textarea`
 
 const BtnWrap = styled.div`
     padding: 10px 0;
+    @media screen and (min-width:860px) {
+        width: 30%;
+    }
+`;
+const BtnAllWrap = styled.div`
+    @media screen and (min-width:860px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row-reverse;
+        padding: 40px 0;
+    }
+`;
+
+const MarginHeader = styled.div`
+    margin: 60px 0;
 `;
 
 class AnswerPage extends Component {
@@ -170,6 +189,8 @@ class AnswerPage extends Component {
                 <Header />
                 {/* ヘッダー */}
 
+                <MarginHeader />
+
                 {/* 状態バー */}
                 <StatusBarWrap>
                     <StatusBar step1Color="#8DCFFF" step2Color="#8DCFFF" step3Color="#FFF" />
@@ -189,15 +210,17 @@ class AnswerPage extends Component {
                 {/* テキストボックス */}
 
                 {/* ボタン */}
-                <BtnWrap>
-                    <Btn text="次へ" clickedFn={this.nextBtn.bind(this)} />
-                </BtnWrap>
-                <BtnWrap>
-                    <Btn text="スキップ" clickedFn={this.nextBtn.bind(this)} />
-                </BtnWrap>
-                <BtnWrap>
-                    <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
-                </BtnWrap>
+                <BtnAllWrap>
+                    <BtnWrap>
+                        <Btn text="次へ" clickedFn={this.nextBtn.bind(this)} />
+                    </BtnWrap>
+                    <BtnWrap>
+                        <Btn text="スキップ" clickedFn={this.nextBtn.bind(this)} />
+                    </BtnWrap>
+                    <BtnWrap>
+                        <Btn text="戻る" clickedFn={this.backBtn.bind(this)} />
+                    </BtnWrap>
+                </BtnAllWrap>
                 {/* ボタン */}
 
                 {/* <p>reduxデータ確認 answerData:{this.props.answerData}</p> */}
