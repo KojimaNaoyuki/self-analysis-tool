@@ -73,6 +73,47 @@ class ConfirmAnswerPage extends Component {
         });
     }
 
+    _drawingCVS() {
+        //キャンバスの作成
+        const cvs = document.createElement("canvas");
+        const width = 595;
+        const height = 185*(this.props.answerData.length);
+        console.log(height);
+
+        cvs.setAttribute("width", width);
+        cvs.setAttribute("height", height);
+
+        const context = cvs.getContext('2d');
+        context.save();
+
+        // -------------------------------------- //
+
+        context.fillStyle = "#FFF";
+        context.fillRect(0, 0, width, height);
+        context.restore();
+
+        context.fillStyle = '#000';
+
+        // -------------------------------------- //
+        //質問を描画
+        context.font = '16px Arial';
+        this.props.answerData.forEach((element, index) => {
+            context.fillText(element, 10, (180*index)+25);
+        });
+
+        return cvs;
+    }
+
+    downloadImg() {
+        //画像をダウンロード
+        const cvs = this._drawingCVS();
+        const png = cvs.toDataURL("image/png");
+        const downloadEle = document.createElement("a");
+        downloadEle.href = png;
+        downloadEle.download = "自己分析.png";
+        downloadEle.click();
+    }
+
     backBtn() {
         this.props.history.push('/answerPage/' + this.props.match.params.jobInfo + '/' + (this.props.answerData.length-1));
     }
@@ -109,7 +150,7 @@ class ConfirmAnswerPage extends Component {
                 {/* ボタン */}
                 <BtnAllWrap>
                     <BtnWrap>
-                        <Btn text="画像として保存" />
+                        <Btn text="画像として保存" clickedFn={this.downloadImg.bind(this)} />
                     </BtnWrap>
                     <BtnWrap>
                         <Btn text="PDFとして保存" />
