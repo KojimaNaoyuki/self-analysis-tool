@@ -78,7 +78,6 @@ class ConfirmAnswerPage extends Component {
         const cvs = document.createElement("canvas");
         const width = 595;
         const height = 185*(this.props.answerData.length);
-        console.log(height);
 
         cvs.setAttribute("width", width);
         cvs.setAttribute("height", height);
@@ -95,10 +94,13 @@ class ConfirmAnswerPage extends Component {
         context.fillStyle = '#000';
 
         // -------------------------------------- //
-        //質問を描画
+        //質問 + 回答を描画
         context.font = '16px Arial';
         this.props.answerData.forEach((element, index) => {
-            context.fillText(element, 10, (180*index)+25);
+            context.font = '16px Arial';
+            context.fillText('【' + element.split(/\s+/)[0] + '】', 10, (180*index)+25);
+            context.font = '14px Arial';
+            context.fillText(element.split(/\s+/)[1], 15, (180*index)+50);
         });
 
         return cvs;
