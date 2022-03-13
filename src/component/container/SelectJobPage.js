@@ -1,5 +1,6 @@
 import { Component } from "react";
 import styled from 'styled-components';
+import { Document, Page, Text, View, StyleSheet, PDFViewer } from "react-pdf";
 
 import Header from "../presentational/organisms/Header";
 import StatusBar from "../presentational/atoms/StatusBar";
